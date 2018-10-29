@@ -1,5 +1,4 @@
 // Etch-a-Sketch project for the the Odin Project.
-// Need to transfer darkening from Opacity to rgba Alpha
 // Need to design layout, add buttons, etc.
 
 let documentHeight = document.documentElement.clientHeight;
@@ -12,7 +11,7 @@ let colorScheme = "";
 
 setGridProperties();
 generateGridElements();
-setColorScheme("grayScale");
+setColorScheme("dynamicColor");
 
 function setColorScheme(scheme) {
   colorScheme = scheme;
@@ -31,6 +30,12 @@ function setColorScheme(scheme) {
     changeClassOnGrid("add","grayScale");
   }
   else if (colorScheme === "color") {
+    if (document.getElementById(1).classList.contains("grayScale")) {
+      changeClassOnGrid("remove","grayScale");
+    }
+    assignRandomColors();
+  }
+  else if (colorScheme === "dynamicColor") {
     if (document.getElementById(1).classList.contains("grayScale")) {
       changeClassOnGrid("remove","grayScale");
     }
@@ -113,16 +118,14 @@ function darkenCell (e) {
   else if (colorScheme === "color") {
     thisDiv.style.opacity = Number(thisDiv.style.opacity) + 0.1;
   }
+  else if (colorScheme === "dynamicColor") {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
 
-}
-
-function getRGB(str){
-  var match = str.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
-  return match ? {
-    r: match[1],
-    g: match[2],
-    b: match[3]
-  } : {};
+    thisDiv.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
+    thisDiv.style.opacity = Number(thisDiv.style.opacity) + 0.1;
+  }
 }
 
 // function to update grid when ChangeGrid is clicked

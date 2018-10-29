@@ -15,7 +15,7 @@ div {
 }
 
 .grid > * {
-    border: 2px solid rgb(137,153,175);
+    
 		background-color: rgb(var(--rValue),var(--gValue),var(--bValue));
 }
 
