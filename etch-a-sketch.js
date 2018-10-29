@@ -1,18 +1,24 @@
 // Etch-a-Sketch project for the the Odin Project.
-// Need to design layout, add buttons, etc.
+// Layout in progress, finish event listeners at end and test
 
 let documentHeight = document.documentElement.clientHeight;
+let documentWidth = document.documentElement.clientWidth;
 let gridContainerHeight = documentHeight - (documentHeight * 0.2); // Assuming the rest of the page is only 20%
 let grid = 32;
 let padding = 1; // // TODO: Capture this from the CSS
 let totalPadding = grid * padding + padding;
 let cellHeight = (gridContainerHeight-totalPadding)/grid;
+// let spacerSize = (documentWidth - gridContainerHeight) / 2;
 let colorScheme = "";
 
 setGridProperties();
 generateGridElements();
 setColorScheme("dynamicColor");
 
+function resetGrid () {
+  // function to clear/reset the existing grid
+  setColorScheme(colorScheme);
+}
 function setColorScheme(scheme) {
   colorScheme = scheme;
 
@@ -47,8 +53,9 @@ function setGridProperties () {
   document.getElementById("gridContainer").style.cssText = (`display: grid;
     grid-template-columns: repeat(` + grid + `,`+ cellHeight + `px);
     grid-template-rows: repeat(` + grid + `,` + cellHeight + `px);
-    grid-gap: ` + padding + `px;`);
-
+    grid-gap: ` + padding + `px; width: ` + gridContainerHeight + `px;`);
+//    document.getElementById("gridRow").style.cssText = (`display: grid;
+//      grid-template-columns:` +  spacerSize + `px,auto,` + spacerSize + `px;`);
 }
 
 function generateGridElements () {
@@ -111,9 +118,7 @@ function darkenCell (e) {
     thisDiv.style.backgroundColor = "rgb(0,0,0)";
   }
   else if (colorScheme === "grayScale") {
-    console.log("start: " + thisDiv.style.opacity);
     thisDiv.style.opacity = Number(thisDiv.style.opacity) + 0.1;
-    console.log(thisDiv.style.opacity);
   }
   else if (colorScheme === "color") {
     thisDiv.style.opacity = Number(thisDiv.style.opacity) + 0.1;
@@ -128,6 +133,10 @@ function darkenCell (e) {
   }
 }
 
-// function to update grid when ChangeGrid is clicked
-
-// function to clear/reset the existing grid. A good would be to clear color classes or to reset all rgb for cell to default
+document.getElementById("changeGridSizeButton").addEventListener("click",() => grid = Number(prompt("Enter a number between 3 and 100 for the grid size:")););
+document.getElementById("selectSchemeButtonGroup")
+document.getElementById("BW").addEventListener("click",() => grid = Number(prompt("Enter a number between 3 and 100 for the grid size:")););
+  document.getElementById("grayScale")
+  document.getElementById("randomColor")
+  document.getElementById("dynamicColor")
+document.getElementById("clearGridButton")

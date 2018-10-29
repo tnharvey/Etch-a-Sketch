@@ -7,19 +7,64 @@
 div {
 	display: block
 }
+
+.hidden {
+	display: none;
+}
 .grid {
     display: grid;
 		grid-template-columns: repeat(16,35px);
 		grid-template-rows: repeat(16,35px);
     grid-gap: 1px;
+		border: 10px solid gray;
+		border-radius: 10px;
+		margin-left: auto;
+		margin-right: auto;
 }
 
 .grid > * {
-    
 		background-color: rgb(var(--rValue),var(--gValue),var(--bValue));
+		border-radius: 3px;
 }
 
 .grayScale {
 	background-color: rgb(0,0,0);
 	opacity: 0;
+}
+
+#changeGridSizeButton {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	font-size: large;
+	color: white;
+	background-color: rgb(100,100,100);
+	padding: 10px;
+	border-radius: 5px;
+}
+
+#selectSchemeButtonGroup {
+	position: absolute;
+	top: 1em;
+	left: 8em;
+	font-size: large;
+	color: white;
+	background-color: rgb(100,100,100);
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.sub {
+	text-align: right;
+}
+
+#clearGridButton {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	font-size: large;
+	color: white;
+	background-color: rgb(100,100,100);
+	padding: 10px;
+	border-radius: 5px;
 }
