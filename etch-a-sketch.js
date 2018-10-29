@@ -26,10 +26,10 @@ function generateGridElements () {
   for (var i = 0; i < (grid * grid); i++) {
     let div = document.createElement('div');
 
-    div.id = toString(i);
+    div.id = i;
     document.getElementById("gridContainer").appendChild(div);
 
-    div.addEventListener("mouseenter", changeCellColor);
+    div.addEventListener("mouseenter", darkenCell);
   }
 }
 
@@ -37,14 +37,22 @@ function generateGridElements () {
 
 // function to capture and assign mouseover grid coordinates (determine grid cell)
 
-function changeCellColor (e) {
-  if (colorScheme === "BW") {
-    let thisDiv = e.target;
+function darkenCell (e) {
+// function to darken cell based on color scheme
+let thisDiv = e.target;
+let currentRGB = thisDiv.style.backgroundColor; // BUG: currentRGB is null. Why!!!???
+console.log(e);
+document.getElementById("lastCellSelected").innerHTML = thisDiv.id;
+document.getElementById("background-color").innerHTML = thisDiv.style.backgroundColor;
 
-    thisDiv.style.backgroundColor = "black";
+  if (colorScheme === "BW") {
+
+    thisDiv.style.backgroundColor = "rgb(0,0,0)";
+  }
+  else if (colorScheme === "grayScale") {
+    //thisDiv.style.backgroundColor =
   }
 }
-// function to determine color of grid cell
 
 // function to update grid when ChangeGrid is clicked
 

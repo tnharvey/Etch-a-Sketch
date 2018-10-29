@@ -10,7 +10,7 @@ div {
 
 .grid > * {
     border: 2px solid rgb(137,153,175);
-		background-color: white;
+		background-color: rgb(244,244,244);
 }
 
 .item {
@@ -19,5 +19,5 @@ div {
 }
 
 .black {
-	background-color: black;
+	background-color: rgb(0,0,0);
 }
