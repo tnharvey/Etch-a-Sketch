@@ -1,0 +1,19 @@
+div {
+	display: block
+}
+.grid {
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    grid-gap: 10px;
+}
+
+.grid > * {
+    border: 2px solid rgb(137,153,175);
+	background-color: black;
+}
+
+.item {
+    grid-column: 2;
+    grid-row: 2;
+}
