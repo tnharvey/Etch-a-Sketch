@@ -54,6 +54,10 @@ div {
 	border-radius: 5px;
 }
 
+.button {
+		cursor: default;
+}
+
 .sub {
 	text-align: right;
 }
