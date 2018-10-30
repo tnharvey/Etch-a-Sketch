@@ -5,20 +5,15 @@ let documentHeight = document.documentElement.clientHeight;
 let documentWidth = document.documentElement.clientWidth;
 let gridContainerHeight = documentHeight - (documentHeight * 0.2); // Assuming the rest of the page is only 20%
 let grid = 32;
-let padding = 1; // // TODO: Capture this from the CSS
+let padding = 1;
 let totalPadding = grid * padding + padding;
 let cellHeight = (gridContainerHeight-totalPadding)/grid;
-// let spacerSize = (documentWidth - gridContainerHeight) / 2;
 let colorScheme = "";
 
 setGridProperties();
 generateGridElements();
 setColorScheme("dynamicColor");
 
-function resetGrid () {
-  // function to clear/reset the existing grid
-  setColorScheme(colorScheme);
-}
 function setColorScheme(scheme) {
   colorScheme = scheme;
 
@@ -35,7 +30,7 @@ function setColorScheme(scheme) {
     removeColors();
     changeClassOnGrid("add","grayScale");
   }
-  else if (colorScheme === "color") {
+  else if (colorScheme === "randomColor") {
     if (document.getElementById(1).classList.contains("grayScale")) {
       changeClassOnGrid("remove","grayScale");
     }
@@ -50,10 +45,18 @@ function setColorScheme(scheme) {
 }
 function setGridProperties () {
   // set gridContainer properties
+  documentHeight = document.documentElement.clientHeight;
+  documentWidth = document.documentElement.clientWidth;
+  gridContainerHeight = documentHeight - (documentHeight * 0.2); // Assuming the rest of the page is only 20%
+  padding = 1;
+  totalPadding = grid * padding + padding;
+  cellHeight = (gridContainerHeight-totalPadding)/grid;
+
   document.getElementById("gridContainer").style.cssText = (`display: grid;
     grid-template-columns: repeat(` + grid + `,`+ cellHeight + `px);
     grid-template-rows: repeat(` + grid + `,` + cellHeight + `px);
-    grid-gap: ` + padding + `px; width: ` + gridContainerHeight + `px;`);
+    grid-gap: ` + padding + `px; width: ` + gridContainerHeight + `px;
+    height: ` + gridContainerHeight + `px;`);
 //    document.getElementById("gridRow").style.cssText = (`display: grid;
 //      grid-template-columns:` +  spacerSize + `px,auto,` + spacerSize + `px;`);
 }
@@ -85,7 +88,6 @@ function changeClassOnGrid (action, classToChange) {
 }
 function assignRandomColors () {
   // assigns random colors to existing grid and sets opacity to 0
-
   for (var i = 0; i < (grid * grid); i++) {
     let div = document.getElementById(i);
     let r = Math.floor(Math.random() * 256);
@@ -108,7 +110,7 @@ function removeColors () {
 function darkenCell (e) {
   // function to darken cell based on color scheme
   let thisDiv = e.target;
-  let currentRGB = document.getElementById(thisDiv.id).style.backgroundColor; // BUG: currentRGB is null. Why!!!???
+  let currentRGB = document.getElementById(thisDiv.id).style.backgroundColor;
   let r = 0;
   let g = 0;
   let b= 0;
@@ -120,7 +122,7 @@ function darkenCell (e) {
   else if (colorScheme === "grayScale") {
     thisDiv.style.opacity = Number(thisDiv.style.opacity) + 0.1;
   }
-  else if (colorScheme === "color") {
+  else if (colorScheme === "randomColor") {
     thisDiv.style.opacity = Number(thisDiv.style.opacity) + 0.1;
   }
   else if (colorScheme === "dynamicColor") {
@@ -133,10 +135,60 @@ function darkenCell (e) {
   }
 }
 
-document.getElementById("changeGridSizeButton").addEventListener("click",() => grid = Number(prompt("Enter a number between 3 and 100 for the grid size:")););
-document.getElementById("selectSchemeButtonGroup")
-document.getElementById("BW").addEventListener("click",() => grid = Number(prompt("Enter a number between 3 and 100 for the grid size:")););
-  document.getElementById("grayScale")
-  document.getElementById("randomColor")
-  document.getElementById("dynamicColor")
-document.getElementById("clearGridButton")
+function clickHandler (e) {
+  let div = e.target;
+
+  if (div.id === "changeGridSizeButton"){
+    grid = Number(prompt("Enter a number between 3 and 100 for the grid size:"));
+  }
+  else if (div.id === "selectSchemeButtonGroup") {
+    toggleHiddenButtons("remove");
+    return;
+  }
+  else if (div.id === "BW") {
+    colorScheme = "BW";
+    toggleHiddenButtons("add");
+  }
+  else if (div.id === "grayScale") {
+    colorScheme = "grayScale";
+    toggleHiddenButtons("add");
+  }
+  else if (div.id === "randomColor") {
+    colorScheme = "randomColor";
+    toggleHiddenButtons("add");
+  }
+  else if (div.id === "dynamicColor") {
+    colorScheme = "dynamicColor";
+    toggleHiddenButtons("add");
+  }
+  else if (div.id === "clearGridButton") {
+  }
+  resetGrid();
+}
+
+function toggleHiddenButtons(action) {
+  if (action === "add"){
+    document.getElementById("BW").classList.add("hidden");
+    document.getElementById("grayScale").classList.add("hidden");
+    document.getElementById("randomColor").classList.add("hidden");
+    document.getElementById("dynamicColor").classList.add("hidden");
+  }
+  else if (action === "remove") {
+    document.getElementById("BW").classList.remove("hidden");
+    document.getElementById("grayScale").classList.remove("hidden");
+    document.getElementById("randomColor").classList.remove("hidden");
+    document.getElementById("dynamicColor").classList.remove("hidden");
+  }
+}
+function resetGrid () {
+  setGridProperties();
+  generateGridElements();
+  setColorScheme(colorScheme);
+}
+document.getElementById("changeGridSizeButton").addEventListener("click",clickHandler);
+document.getElementById("selectSchemeButtonGroup").addEventListener("click",clickHandler);
+document.getElementById("BW").addEventListener("click",clickHandler);
+document.getElementById("grayScale").addEventListener("click",clickHandler);
+document.getElementById("randomColor").addEventListener("click",clickHandler);
+document.getElementById("dynamicColor").addEventListener("click",clickHandler);
+document.getElementById("clearGridButton").addEventListener("click",clickHandler);
