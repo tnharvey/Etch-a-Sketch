@@ -71,6 +71,7 @@ function generateGridElements () {
     document.getElementById("gridContainer").appendChild(div);
 
     div.addEventListener("mouseenter", darkenCell);
+    div.addEventListener("touchmove", darkenCell);
   }
 }
 
